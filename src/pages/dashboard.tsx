@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const response = await fetch("/dashboard");
+      const response = await fetch("http://localhost:5005/dashboard");
       const data = await response.json();
       console.log(data);
       setStats(data);
