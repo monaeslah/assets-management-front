@@ -1,30 +1,53 @@
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { fetchDashboardStats } from "../services/dashboardService";
+import Card from "../components/card";
 const Dashboard = () => {
-  const [stats, setStats] = useState({
-    totalAssets: 0,
-    totalEmployees: 0,
-    availableAssets: 0,
-    totalAdmins: 0,
-  });
+  const [stats, setStats] = useState<{
+    totalAssets: number;
+    totalEmployees: number;
+    availableAssets: number;
+    totalAdmins: number;
+  } | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchStats = async () => {
-      const response = await fetch("http://localhost:5005/dashboard");
-      const data = await response.json();
-      console.log(data);
-      setStats(data);
+      try {
+        const data = await fetchDashboardStats();
+        setStats(data);
+      } catch (error) {
+        console.error("Failed to fetch dashboard stats:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchStats();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!stats) {
+    return <div>Failed to load data.</div>;
+  }
 
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>Total Assets: {stats.totalAssets}</p>
-      <p>Total Employees: {stats.totalEmployees}</p>
-      <p>Available Assets: {stats.availableAssets}</p>
-      <p>Total Admins: {stats.totalAdmins}</p>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "1rem",
+        }}
+      >
+        <Card title="Total Assets" value={stats.totalAssets} />
+        <Card title="Total Employees" value={stats.totalEmployees} />
+        <Card title="Available Assets" value={stats.availableAssets} />
+        <Card title="Total Admins" value={stats.totalAdmins} />
+      </div>
     </div>
   );
 };
