@@ -1,6 +1,8 @@
 import axios from "axios";
 
 export const fetchDashboardStats = async () => {
-  const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard`);
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_URL}/api/dashboard`
+  );
   return response.data;
 };

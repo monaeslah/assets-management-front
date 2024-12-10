@@ -35,7 +35,7 @@ const NotFound: React.FC = () => {
 
   // Handle redirection to the desired page
   const handleRedirect = () => {
-    navigate("/mine-dreams");
+    navigate("/dashboard");
   };
 
   return (

@@ -1,5 +1,3 @@
-// src/types/auth.d.ts
-
 export interface AuthContextType {
   user: User | null
   token: string | null
@@ -24,7 +22,7 @@ export interface LoginForm {
 export interface SignUpForm {
   email: string
   password: string
-  role?: 'HR_MANAGER' | 'EMPLOYEE' // Optional, default is EMPLOYEE
+  role?: 'HR_MANAGER' | 'EMPLOYEE'
 }
 
 export interface SignUpResponse {

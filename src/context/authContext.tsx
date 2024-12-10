@@ -25,7 +25,6 @@ export const useAuthContext = (): AuthContextType => {
   return context;
 };
 
-// AuthProvider component
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -49,7 +48,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, [token]);
 
-  const loginFunction = async (
+  const login = async (
     form: LoginForm
   ): Promise<{ success: boolean; message: string }> => {
     try {
@@ -139,7 +138,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         user,
         token,
-        loginFunction,
+        login,
         logout,
         signUp,
         feedBackLogin,

@@ -11,7 +11,7 @@ import showIcon from "../../assets/images/visibility_on.svg";
 import { LoginForm } from "../../types/pages";
 
 const Login: React.FC = () => {
-  const { loginFunction, feedBackLogin } = useAuthContext();
+  const { login, feedBackLogin } = useAuthContext();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState<LoginForm>({
     email: "",
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await loginFunction(form);
+    await login(form);
   };
 
   return (
