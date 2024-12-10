@@ -5,7 +5,7 @@ import { useAuthContext } from "../context/authContext";
 
 const Dashboard = () => {
   const { token } = useAuthContext();
-  console.log(token);
+
   const [stats, setStats] = useState<{
     totalAssets: number;
     totalEmployees: number;

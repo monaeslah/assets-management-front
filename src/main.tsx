@@ -4,7 +4,7 @@ import "./styles/index.scss";
 import App from "./App.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./context/authContext.tsx";
-import { AssetProvider } from "./context/assetsContext.tsx";
+import { AssetProvider } from "./context/assetContext.tsx";
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {

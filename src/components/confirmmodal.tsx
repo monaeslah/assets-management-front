@@ -1,43 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AssetForm from "./assetform";
-
-interface ModalFormProps {
+interface ConfirmModalProps {
   isOpen: boolean;
-  initialData?: {
-    name: string;
-    type: string;
-    serialNumber: string;
-    status: string;
-  };
-  onSave: (data: {
-    name: string;
-    type: string;
-    serialNumber: string;
-    status: string;
-  }) => void;
-  onClose: () => void;
+  onConfirm: () => void;
+  onCancel: () => void;
+  message: string;
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({
+const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpen,
-  initialData,
-  onSave,
-  onClose,
+  onConfirm,
+  onCancel,
+  message,
 }) => {
   if (!isOpen) return null;
-
+  console.log("Is Delete Modal Open:", isOpen);
   return ReactDOM.createPortal(
     <div style={styles.overlay}>
       <div style={styles.modal}>
-        <button onClick={onClose} style={styles.closeButton}>
-          ×
+        <p>{message}</p>
+        <button
+          onClick={() => {
+            console.log("Confirm button clicked");
+            onConfirm();
+          }}
+          style={styles.confirmButton}
+        >
+          Confirm
         </button>
-        <AssetForm
-          initialData={initialData}
-          onSave={onSave}
-          onCancel={onClose}
-        />
+        <button onClick={onCancel} style={styles.cancelButton}>
+          Cancel
+        </button>
       </div>
     </div>,
     document.getElementById("modal-root") as HTMLElement
@@ -61,19 +54,25 @@ const styles = {
     background: "white",
     borderRadius: "8px",
     padding: "20px",
-    width: "400px",
+    width: "300px",
+    textAlign: "center" as const,
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-    position: "relative" as const,
   },
-  closeButton: {
-    position: "absolute" as const,
-    top: "10px",
-    right: "10px",
-    background: "none",
+  confirmButton: {
+    background: "green",
+    color: "white",
     border: "none",
-    fontSize: "1.5rem",
+    padding: "10px 20px",
+    marginRight: "10px",
+    cursor: "pointer",
+  },
+  cancelButton: {
+    background: "red",
+    color: "white",
+    border: "none",
+    padding: "10px 20px",
     cursor: "pointer",
   },
 };
 
-export default ModalForm;
+export default ConfirmModal;

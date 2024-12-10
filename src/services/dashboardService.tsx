@@ -13,6 +13,7 @@ export const fetchDashboardStats = async (token: string) => {
       },
     }
   );
+  console.log(token);
 
   return response.data;
 };

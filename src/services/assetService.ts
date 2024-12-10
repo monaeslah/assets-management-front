@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { handleApiError } from '../utilites/index'
 import { Asset } from '../types/asset'
-
+interface AssetResponse {
+  assets: Asset[]
+}
 const getToken = (): string | null => {
   return localStorage.getItem('authToken')
 }
@@ -26,16 +28,19 @@ apiClient.interceptors.request.use(
 // API functions
 export const fetchAssetsAPI = async (): Promise<Asset[]> => {
   try {
-    const response = await apiClient.get<Asset[]>('')
-    return response.data
+    const response = await apiClient.get<AssetResponse>('')
+    return response.data.assets
   } catch (error) {
     throw handleApiError(error)
   }
 }
 
 export const addAssetAPI = async (asset: Omit<Asset, 'id'>): Promise<Asset> => {
+  console.log(localStorage.getItem('authToken'))
+
   try {
     const response = await apiClient.post<Asset>('', asset)
+
     return response.data
   } catch (error) {
     throw handleApiError(error)

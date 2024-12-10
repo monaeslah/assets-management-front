@@ -1,6 +1,6 @@
 Pages:
 User Login and Signup (already implemented with AuthContext).
-[] Dashboard:
+[x] Dashboard:
 Displays statistics:
 . Total number of assets.
 . Total number of employees.
@@ -50,17 +50,16 @@ Card:
 
 For displaying statistics on the dashboard (e.g., total assets, total employees).
 src/
-├── components/ // Reusable components (e.g., forms, modals, tables)
-│   ├── Table.tsx         // Reusable table component
-│   ├── AssetForm.tsx     // Form for add/edit asset
-│   └── ConfirmModal.tsx 
-├── contexts/ // Context providers for state management
-├── hooks/ // Custom hooks for reusability
-├── pages/ // Page components (e.g., Dashboard, Assets, Employees)
-├── routes/ // Application routing (React Router)
-├── services/ // API calls and services
-├── utils/ // Utility functions
-├── App.tsx // Main application entry point
-├── index.tsx // Application bootstrapping
+├── components/
+│   ├── AssetModal.tsx        // For adding/editing assets
+│   ├── ConfirmDialog.tsx     // For delete confirmation
+│   ├── Table.tsx             // Reusable table for displaying assets
+├── contexts/
+│   ├── AssetsContext.tsx     // Context managing asset state and CRUD operations
+├── pages/
+│   ├── AssetsPage.tsx        // Main page for managing assets
+├── services/
+│   ├── assetService.ts       // API calls for assets (add, edit, delete)
+
 
 

@@ -3,5 +3,11 @@ export interface Asset {
   name: string
   type: string
   serialNumber: string
-  status: string
+  status: 'AVAILABLE' | 'CHECKED_OUT'
+  assignedUserId?: number | null
+  assignedUser?: {
+    id: number
+    name: string
+    department: string
+  } | null
 }

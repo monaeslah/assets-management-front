@@ -5,39 +5,71 @@ interface TableProps<T> {
   onDelete?: (id: number) => void;
 }
 
-const Table = <T extends { id: number }>({
+const SectionTable = <T extends { id: number }>({
   data,
   columns,
   onEdit,
   onDelete,
-}: TableProps<T>) => (
-  <table>
-    <thead>
-      <tr>
+}: TableProps<T>) => {
+  return (
+    <section className="mainTable" id="thetender">
+      <section className="rowHeading">
         {columns.map((col) => (
-          <th key={col.accessor as string}>{col.header}</th>
+          <div key={col.accessor as string} className="tableCell">
+            <span className="itemlabel">{col.header}</span>
+          </div>
         ))}
-        {(onEdit || onDelete) && <th>Actions</th>}
-      </tr>
-    </thead>
-    <tbody>
-      {data.map((item) => (
-        <tr key={item.id}>
-          {columns.map((col) => (
-            <td key={col.accessor as string}>{item[col.accessor]}</td>
-          ))}
-          {(onEdit || onDelete) && (
-            <td>
-              {onEdit && <button onClick={() => onEdit(item.id)}>Edit</button>}
-              {onDelete && (
-                <button onClick={() => onDelete(item.id)}>Delete</button>
-              )}
-            </td>
-          )}
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
+        {(onEdit || onDelete) && (
+          <div className="tableCell">
+            <span className="itemlabel">Actions</span>
+          </div>
+        )}
+      </section>
 
-export default Table;
+      <section className="tableContainer">
+        {data.length > 0 ? (
+          data.map((item) => (
+            <section key={item.id} className="tableRow">
+              {columns.map((col) => (
+                <div key={col.accessor as string} className="tableCell">
+                  {item[col.accessor]}
+                </div>
+              ))}
+              {(onEdit || onDelete) && (
+                <div className="tableCell align-right">
+                  {onEdit && (
+                    <button className="button" onClick={() => onEdit(item.id)}>
+                      Edit
+                    </button>
+                  )}
+                  {onDelete && (
+                    <button
+                      className="button"
+                      onClick={() => {
+                        console.log("Clicked delete for item ID:", item.id);
+                        onDelete(item.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
+              )}
+            </section>
+          ))
+        ) : (
+          <section className="tableRow">
+            <div
+              className="tableCell"
+              style={{ gridColumn: columns.length + 1 }}
+            >
+              No data available
+            </div>
+          </section>
+        )}
+      </section>
+    </section>
+  );
+};
+
+export default SectionTable;
