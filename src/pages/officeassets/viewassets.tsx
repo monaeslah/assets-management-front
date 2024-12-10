@@ -19,7 +19,7 @@ const AssetPage: React.FC = () => {
 
   useEffect(() => {
     fetchAssets();
-  }, [fetchAssets]);
+  }, []);
 
   if (loading) return <p>Loading assets...</p>;
   if (error) return <p>{error}</p>;

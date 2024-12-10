@@ -2,16 +2,31 @@ import axios from 'axios'
 import { handleApiError } from '../utilites/index'
 import { Asset } from '../types/asset'
 
+const getToken = (): string | null => {
+  return localStorage.getItem('authToken')
+}
+
 const apiClient = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}/api/assets`,
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  baseURL: `${import.meta.env.VITE_API_URL}/api/assets`
 })
 
+apiClient.interceptors.request.use(
+  config => {
+    const token = getToken()
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
+// API functions
 export const fetchAssetsAPI = async (): Promise<Asset[]> => {
   try {
-    const response = await apiClient.get<Asset[]>('/')
+    const response = await apiClient.get<Asset[]>('')
     return response.data
   } catch (error) {
     throw handleApiError(error)
@@ -20,7 +35,7 @@ export const fetchAssetsAPI = async (): Promise<Asset[]> => {
 
 export const addAssetAPI = async (asset: Omit<Asset, 'id'>): Promise<Asset> => {
   try {
-    const response = await apiClient.post<Asset>('/', asset)
+    const response = await apiClient.post<Asset>('', asset)
     return response.data
   } catch (error) {
     throw handleApiError(error)
