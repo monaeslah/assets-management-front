@@ -3,7 +3,7 @@ import { useAssets } from "../../context/assetsContext";
 import Table from "../../components/table";
 import AssetForm from "../../components/assetform";
 import ConfirmModal from "../../components/confirmmodal";
-
+import { Asset } from "../../types/asset";
 const AssetPage: React.FC = () => {
   const {
     assets,

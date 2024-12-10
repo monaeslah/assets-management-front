@@ -1,7 +1,13 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, signUpAPI } from "../services/authService";
-import { AuthContextType, LoginForm, SignUpForm } from "../types/auth";
+import { AuthContextType, LoginForm, User, SignUpForm } from "../types/auth";
 import { ApiError } from "../types/error";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -18,14 +24,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [feedback, setFeedback] = useState<string>("");
+  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(
+    () => localStorage.getItem("authToken") || null
+  );
 
   const navigate = useNavigate();
-
+  useEffect(() => {
+    const storedUserInfo = localStorage.getItem("userInfo");
+    if (token && storedUserInfo) {
+      setUserInfo(JSON.parse(storedUserInfo));
+    }
+  }, [token]);
   const login = async (form: LoginForm): Promise<void> => {
     try {
       const { token, user } = await loginAPI(form);
-      // Handle successful login
-      console.log("Logged in user:", user);
+      setUserInfo(user);
+      setToken(token);
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userInfo", JSON.stringify(user));
       navigate("/dashboard");
     } catch (error) {
       const apiError = error as ApiError;
@@ -45,7 +62,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ login, signUp, feedback, user, token }}>
+    <AuthContext.Provider value={{ login, signUp, feedback, userInfo, token }}>
       {children}
     </AuthContext.Provider>
   );

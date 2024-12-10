@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { useState } from "react";
 
 import { useAuthContext } from "../context/authContext";
 
@@ -8,7 +7,6 @@ const ProtectedRoute = ({ children }) => {
 
   return token ? (
     <div className={`main-content `}>
-      {/* <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> */}
       <div
         style={{
           marginLeft: "70px",

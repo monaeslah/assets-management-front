@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchDashboardStats } from "../services/dashboardService";
 import Card from "../components/card";
+import { useAuthContext } from "../context/authContext";
+
 const Dashboard = () => {
+  const { token } = useAuthContext();
+  console.log(token);
   const [stats, setStats] = useState<{
     totalAssets: number;
     totalEmployees: number;
@@ -13,7 +17,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const data = await fetchDashboardStats();
+        const data = await fetchDashboardStats(token);
         setStats(data);
       } catch (error) {
         console.error("Failed to fetch dashboard stats:", error);
