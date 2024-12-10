@@ -5,6 +5,7 @@ import SignUpPage from "../pages/auth/signup";
 import ProtectedRoute from "./protectRoutes";
 import NotFound from "../pages/notfound";
 import Dashboard from "../pages/dashboard";
+import AssetPage from "../pages/officeassets/viewassets";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/assets"
+          element={
+            <ProtectedRoute>
+              <AssetPage />
             </ProtectedRoute>
           }
         />

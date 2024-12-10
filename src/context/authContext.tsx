@@ -1,19 +1,8 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
-import axios from "axios";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  AuthContextType,
-  User,
-  LoginForm,
-  SignUpForm,
-  SignUpResponse,
-} from "../types/auth";
+import { loginAPI, signUpAPI } from "../services/authService";
+import { AuthContextType, LoginForm, SignUpForm } from "../types/auth";
+import { ApiError } from "../types/error";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -28,123 +17,35 @@ export const useAuthContext = (): AuthContextType => {
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem("authToken") || null
-  );
-  const [feedBackLogin, setFeedBackLogin] = useState<string>("");
-  const [feedBackSignUp, setFeedBackSignUp] = useState<string>("");
+  const [feedback, setFeedback] = useState<string>("");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      const savedUser = localStorage.getItem("user");
-      if (savedUser) {
-        setUser(JSON.parse(savedUser));
-      }
-    }
-  }, [token]);
-
-  const login = async (
-    form: LoginForm
-  ): Promise<{ success: boolean; message: string }> => {
+  const login = async (form: LoginForm): Promise<void> => {
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        form
-      );
-
-      const authToken = res.data.token;
-      const userData: User = res.data.user;
-      console.log("Token after login:", res.data);
-      setToken(authToken);
-      setUser(userData);
-
-      localStorage.setItem("authToken", authToken);
-      localStorage.setItem("user", JSON.stringify(userData));
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
-
-      console.log("Navigating to dashboard...");
+      const { token, user } = await loginAPI(form);
+      // Handle successful login
+      console.log("Logged in user:", user);
       navigate("/dashboard");
-
-      console.log("Navigation attempted");
-      return { success: true, message: "Login successful!" };
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const errorMessage =
-          error.response?.data?.message || "An unexpected error occurred.";
-        setFeedBackLogin(errorMessage);
-        return { success: false, message: errorMessage };
-      } else {
-        const genericMessage = "An unexpected error occurred.";
-        setFeedBackLogin(genericMessage);
-        return { success: false, message: genericMessage };
-      }
+      const apiError = error as ApiError;
+      setFeedback(apiError.message);
     }
   };
 
-  const signUp = async (userData: SignUpForm): Promise<SignUpResponse> => {
+  const signUp = async (form: SignUpForm): Promise<void> => {
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/signup`,
-        userData
-      );
+      await signUpAPI(form);
 
-      const authToken = res.data.authToken;
-      const userDataResponse: User = res.data.user;
-
-      setToken(authToken);
-      setUser(userDataResponse);
-
-      localStorage.setItem("authToken", authToken);
-      localStorage.setItem("user", JSON.stringify(userDataResponse));
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
-
-      navigate("/dashboard");
-
-      return {
-        success: true,
-        message: "Sign-up successful! You can now log in.",
-      };
+      navigate("/login");
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const errorMessage =
-          error.response?.data?.message || "An unexpected error occurred.";
-        setFeedBackSignUp(errorMessage);
-        return { success: false, message: errorMessage };
-      } else {
-        const genericMessage = "An unexpected error occurred.";
-        setFeedBackSignUp(genericMessage);
-        return { success: false, message: genericMessage };
-      }
+      const apiError = error as ApiError;
+      setFeedback(apiError.message);
     }
-  };
-
-  const logout = (): void => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-    delete axios.defaults.headers.common["Authorization"];
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        token,
-        login,
-        logout,
-        signUp,
-        feedBackLogin,
-        feedBackSignUp,
-      }}
-    >
+    <AuthContext.Provider value={{ login, signUp, feedback, user, token }}>
       {children}
     </AuthContext.Provider>
   );
