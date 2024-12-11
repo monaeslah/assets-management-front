@@ -5,6 +5,7 @@ import AssetForm from "../../components/assetform";
 import ConfirmModal from "../../components/confirmmodal";
 import { Asset } from "../../types/asset";
 import { toast } from "react-toastify";
+import AssetButton from "../../components/button";
 
 const AssetPage: React.FC = () => {
   const {
@@ -64,7 +65,13 @@ const AssetPage: React.FC = () => {
         {" "}
         <h1>Assets</h1>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button onClick={() => setIsAddModalOpen(true)}>Add Asset</button>
+        <AssetButton
+          label={"Add Asset"}
+          enable={true}
+          size="small"
+          className={"primary-btn margin-top"}
+          onClick={() => setIsAddModalOpen(true)}
+        />
       </div>
 
       <Table

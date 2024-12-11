@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
       <Navbar />
       <div
         style={{
-          marginLeft: "70px",
+          margin: "70px",
           transition: "margin-left 0.3s ease",
           flex: 1,
         }}

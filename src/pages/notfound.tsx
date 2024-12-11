@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import DreamButton from "../components/button";
+import AssetButton from "../components/button";
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const NotFound: React.FC = () => {
       <p style={styles.paragraph}>
         Sorry, the page you're looking for doesn't exist.
       </p>
-      <DreamButton
+      <AssetButton
         label={"Back to your Dreams"}
         enable={true}
         size="medium"

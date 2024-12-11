@@ -3,7 +3,7 @@ import { useAuthContext } from "../../context/authContext";
 import Over_the_Rhone from "../../assets/images/Over_the_Rhone.jpg";
 import SignUpPage from "./signup";
 import InputField from "../../components/Input";
-import DreamButton from "../../components/button";
+import AssetButton from "../../components/button";
 import passwordIcon from "../../assets/images/password.svg";
 import emailIcon from "../../assets/images/email.svg";
 import hideIcon from "../../assets/images/visibility_off.svg";
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
                   />
                 </InputField>
 
-                <DreamButton
+                <AssetButton
                   label="Submit"
                   enable={true}
                   size="medium"

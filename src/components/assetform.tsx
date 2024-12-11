@@ -73,6 +73,7 @@ const AssetForm: React.FC<AssetFormProps> = ({
         padding: "1rem",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
         zIndex: 1000,
+        width: "800px",
       }}
     >
       <h2>{initialData ? "Edit Asset" : "Add New Asset"}</h2>

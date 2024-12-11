@@ -7,6 +7,7 @@ import { Employee } from "../../types/employee";
 import { toast } from "react-toastify";
 import { fetchDepartments } from "../../services/employeeSevice.ts";
 import { Department } from "../../types/department.ts";
+import AssetButton from "../../components/button.tsx";
 const EmployeesPage: React.FC = () => {
   const {
     employees,
@@ -57,8 +58,19 @@ const EmployeesPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Employees</h1>
-      <button onClick={() => setIsAddModalOpen(true)}>Add Employee</button>
+      <div id="header">
+        {" "}
+        <h1>Employees</h1>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <AssetButton
+          label={"Add Employee"}
+          enable={true}
+          size="medium"
+          className={"primary-btn margin-top"}
+          onClick={() => setIsAddModalOpen(true)}
+        />
+      </div>
+
       <Table
         data={employees}
         columns={[

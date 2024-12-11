@@ -1,8 +1,8 @@
 import React, { useState, MouseEvent } from "react";
 import classNames from "classnames";
-import { DreamButtonProps } from "../types/components";
+import { AssetButtonProps } from "../types/components";
 
-const DreamButton: React.FC<DreamButtonProps> = ({
+const AssetButton: React.FC<AssetButtonProps> = ({
   size,
   className,
   enable,
@@ -61,4 +61,4 @@ const DreamButton: React.FC<DreamButtonProps> = ({
   );
 };
 
-export default DreamButton;
+export default AssetButton;

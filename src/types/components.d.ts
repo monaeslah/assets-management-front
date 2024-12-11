@@ -2,7 +2,7 @@
 
 export type ButtonSize = 'small' | 'medium' | 'large' | 'xlarge' | 'remove'
 
-export interface DreamButtonProps {
+export interface AssetButtonProps {
   size: ButtonSize
   className?: string
   enable: boolean

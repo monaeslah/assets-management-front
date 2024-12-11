@@ -11,7 +11,7 @@ export interface InputFieldProps {
   children: React.ReactNode
 }
 
-export interface DreamButtonProps {
+export interface AssetButtonProps {
   label: string
   enable: boolean
   size: 'small' | 'medium' | 'large'

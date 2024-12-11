@@ -3,7 +3,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import InputField from "../../components/Input";
-import DreamButton from "../../components/button";
+import AssetButton from "../../components/button";
 import Login from "./login";
 import Over_the_Rhone from "../../assets/images/Over_the_Rhone.jpg";
 import { SignUpForm, SignUpPageProps } from "../../types/pages";
@@ -114,7 +114,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                   />
                 </InputField>
 
-                <DreamButton
+                <AssetButton
                   label="Sign up"
                   enable={true}
                   size="medium"
