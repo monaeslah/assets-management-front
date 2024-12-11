@@ -1,182 +1,66 @@
 .mainTable {
   width: 100%;
-  // height: 100%;
-  display: flex;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
-
-  a {
-    text-decoration: none;
-  }
-}
-.itemfilter {
-  display: flex;
-  align-items: center;
-}
-.filterview {
-  position: relative;
-}
-.itemlabel {
-  padding-right: 4px;
-}
-.filtercomponent {
-  position: absolute;
-  padding: 20px;
-  border-radius: 10px;
-  border: 2px solid #e0e0e0;
-  background-color: #f4f7fb;
-}
-
-#thetender {
-  padding: 10px;
-  overflow-y: scroll;
-  display: inherit;
-
-  .mainTable {
-    display: table;
-    border-collapse: collapse;
-  }
-
-  .tableRow {
-    font-size: 12px;
-    display: table-row;
-    border-bottom: 1px solid #a0a0a0;
-    height: 62px;
-
-    &.selected {
-      background-color: #e0e0e0;
-    }
-  }
-
-  .tableCell {
-    display: table-cell;
-    padding: 10px;
-  }
-
-  .rowHeading {
-    display: table-row;
-    height: 60px;
-    background-color: #f4f7fb;
-  }
-
-  .tableContainer {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .longlist-plus {
-    img {
-      width: 25px;
-      height: 25px;
-    }
-  }
-
-  .rowHeading {
-    background: #f4f7fb;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 18px;
-    letter-spacing: 0.48px;
-    text-transform: uppercase;
-    padding: 12px 40px;
-
-    div.tableCell {
-      padding-top: 18px;
-      padding-left: 20px;
-    }
-  }
-}
-
-.longlist-detail {
-  width: 100%;
-}
-
-.selected-row {
-  border: 1px solid #2f9461;
-  cursor: pointer;
-}
-
-.selected-row-remove {
-  border: 1px solid #a32e2e;
-  cursor: pointer;
-}
-
-.tableTitle {
-  color: $primary-color;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0.8px;
-}
-
-.last-item {
-  display: flex;
-  justify-content: right;
-
-  img {
-    width: 38px;
-    height: 38px;
-    margin: auto;
-  }
-
-  .longlist-plus {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    cursor: pointer;
-    justify-content: center;
-
-    img {
-      width: 38px;
-      height: 38px;
-    }
-  }
-
-  .active {
-    border: 1px solid #a32e2e;
-  }
-
-  .seleted {
-  }
-
-  .not_selected {
-  }
-}
-
-.link-btn {
-  display: flex;
-  justify-content: right;
-}
-
-.align-content {
-  display: flex;
-  flex: 1 1;
-  font-size: 12px;
-  padding: 8px 0;
-  justify-content: left;
-  align-items: center;
-}
-
-.button {
-  padding: 10px;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.rowHeading {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 100px;
+  background-color: #f9fafb;
+  font-weight: bold;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px 12px;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 100px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #f3f4f6;
+}
+
+.tableCell {
+  padding: 8px 12px;
+}
+
+.actionsHeader,
+.actionsCell {
+  text-align: right;
+}
+
+.iconButton {
+  background: none;
+  border: none;
   cursor: pointer;
-  padding: 10px;
-  border: 1px solid;
+  padding: 4px 8px;
+  font-size: 1.2rem;
+  color: #374151;
+  transition: color 0.2s ease;
+}
+
+.iconButton:hover {
+  color: #1f2937;
+}
+
+.deleteButton:hover {
+  color: #ef4444;
+}
+
+.noDataRow {
   text-align: center;
-  display: block;
-}
-
-.tenderSelect {
-  max-width: 200px;
-  margin: 30px auto 30px auto;
-}
-
-.align-right {
-  justify-content: right;
+  font-style: italic;
+  color: #9ca3af;
 }

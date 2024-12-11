@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { loginAPI, signUpAPI } from "../services/authService";
 import { AuthContextType, LoginForm, User, SignUpForm } from "../types/auth";
 import { ApiError } from "../types/error";
+import axios from "axios";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -60,9 +61,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       setFeedback(apiError.message);
     }
   };
-
+  const logout = () => {
+    setToken(null);
+    setUserInfo(null);
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userInfo");
+    delete axios.defaults.headers.common["Authorization"];
+    navigate("/login");
+  };
   return (
-    <AuthContext.Provider value={{ login, signUp, feedback, userInfo, token }}>
+    <AuthContext.Provider
+      value={{ login, signUp, logout, feedback, userInfo, token }}
+    >
       {children}
     </AuthContext.Provider>
   );

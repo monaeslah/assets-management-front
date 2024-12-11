@@ -1,105 +1,61 @@
-nav {
+/* src/styles/Navbar.css */
+.navbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background-color: #bedcfe;
-  // background-color: rgb(111 80 148 / 87%);
-  position: sticky;
-  top: 0;
-  min-height: 70px;
-  width: 100%;
-  padding: 0 1rem;
-  box-sizing: border-box;
-
-  z-index: 100;
-
-  .navbar-logo img {
-    height: 60px;
-    width: auto;
-  }
-
-  .navbar-links {
-    display: flex;
-    list-style: none;
-    gap: 1rem;
-  }
-
-  .navbar-item {
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-link {
-    text-decoration: none;
-    color: #32213a;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 16px;
-    font-weight: bold;
-
-    &:hover {
-      color: #85bda6;
-    }
-  }
-
-  .navbar-user-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-
-    .MuiAvatar-root {
-      margin-left: 1rem; // Adjusted position on the left side
-    }
-
-    .navbar-username {
-      font-weight: bold;
-      font-size: 1rem;
-    }
-  }
-  a {
-    color: rgb(111 80 148 / 87%);
-  }
-}
-.signup {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #bedcfe;
-  position: sticky;
-  top: 0;
-  max-height: 70px;
-  width: 100%;
-  padding: 0 1rem;
-  box-sizing: border-box;
+  padding: 1rem 2rem;
+  background-color: #2d3748;
+  color: white;
 }
 
-nav h1 {
-  color: #32213a;
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-brand h1 {
+  font-size: 1.5rem;
+  color: #fff;
 }
 
 .navbar-links {
-  display: flex;
   list-style: none;
+  display: flex;
   gap: 1rem;
 }
 
-.navbar-item {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-link {
+.navbar-links a {
   text-decoration: none;
-  color: #32213a;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 16px;
-  font-weight: bold;
+  color: #a0aec0;
+  transition: color 0.3s;
 }
 
-.navbar-link:hover {
-  color: #85bda6;
+.navbar-links a.active {
+  color: #63b3ed;
+}
+
+.navbar-links a:hover {
+  color: #fff;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logout-button {
+  background-color: #e53e3e;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #c53030;
 }

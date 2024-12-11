@@ -1,12 +1,14 @@
 import { Navigate } from "react-router-dom";
 
 import { useAuthContext } from "../context/authContext";
+import Navbar from "../components/navbar";
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuthContext();
 
   return token ? (
     <div className={`main-content `}>
+      <Navbar />
       <div
         style={{
           marginLeft: "70px",

@@ -1,6 +1,12 @@
+import React from "react";
+
 interface TableProps<T> {
   data: T[];
-  columns: { header: string; accessor: keyof T }[];
+  columns: {
+    header: string;
+    accessor: keyof T;
+    render?: (value: any) => JSX.Element;
+  }[];
   onEdit?: (id: number) => void;
   onDelete?: (id: number) => void;
 }
@@ -11,46 +17,51 @@ const SectionTable = <T extends { id: number }>({
   onEdit,
   onDelete,
 }: TableProps<T>) => {
+  console.log(data);
   return (
     <section className="mainTable" id="thetender">
+      {/* Table Header */}
       <section className="rowHeading">
         {columns.map((col) => (
-          <div key={col.accessor as string} className="tableCell">
-            <span className="itemlabel">{col.header}</span>
+          <div key={col.accessor as string} className="tableCell tableHeader">
+            <span>{col.header}</span>
           </div>
         ))}
         {(onEdit || onDelete) && (
-          <div className="tableCell">
-            <span className="itemlabel">Actions</span>
+          <div className="tableCell tableHeader actionsHeader">
+            <span>Actions</span>
           </div>
         )}
       </section>
 
+      {/* Table Body */}
       <section className="tableContainer">
         {data.length > 0 ? (
           data.map((item) => (
             <section key={item.id} className="tableRow">
               {columns.map((col) => (
                 <div key={col.accessor as string} className="tableCell">
-                  {item[col.accessor]}
+                  {col.render
+                    ? col.render(item[col.accessor])
+                    : item[col.accessor]}
                 </div>
               ))}
               {(onEdit || onDelete) && (
-                <div className="tableCell align-right">
+                <div className="tableCell actionsCell">
                   {onEdit && (
-                    <button className="button" onClick={() => onEdit(item.id)}>
-                      Edit
+                    <button
+                      className="iconButton"
+                      onClick={() => onEdit(item.id)}
+                    >
+                      ✏️
                     </button>
                   )}
                   {onDelete && (
                     <button
-                      className="button"
-                      onClick={() => {
-                        console.log("Clicked delete for item ID:", item.id);
-                        onDelete(item.id);
-                      }}
+                      className="iconButton deleteButton"
+                      onClick={() => onDelete(item.id)}
                     >
-                      Delete
+                      🗑️
                     </button>
                   )}
                 </div>
@@ -58,7 +69,7 @@ const SectionTable = <T extends { id: number }>({
             </section>
           ))
         ) : (
-          <section className="tableRow">
+          <section className="tableRow noDataRow">
             <div
               className="tableCell"
               style={{ gridColumn: columns.length + 1 }}

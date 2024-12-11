@@ -1,17 +1,20 @@
-import React, { createContext, useState, ReactNode } from "react";
+// EmployeeContext.tsx
+import React, { createContext, useState, useEffect, ReactNode } from "react";
 import {
   getAllEmployees,
   createEmployee,
   updateEmployee,
   deleteEmployee,
 } from "../services/employeeSevice";
-import { EmployeeContextType } from "../types/employee";
+import { Employee, EmployeeContextType } from "../types/employee";
 import { handleApiError } from "../utilites/index";
 
+// Create context
 const EmployeeContext = createContext<EmployeeContextType | undefined>(
   undefined
 );
 
+// Provider component
 export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -19,12 +22,12 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch employees from API
   const fetchEmployees = async () => {
     try {
       setLoading(true);
       const data = await getAllEmployees();
       setEmployees(data);
-
       setError(null);
     } catch (error) {
       setError("Failed to fetch employees");
@@ -34,6 +37,7 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // Add a new employee
   const addEmployee = async (employee: Omit<Employee, "id">) => {
     try {
       const newEmployee = await createEmployee(employee);
@@ -43,6 +47,7 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // Edit an existing employee
   const editEmployee = async (id: number, updates: Partial<Employee>) => {
     try {
       const updatedEmployee = await updateEmployee(id, updates);
@@ -56,7 +61,8 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  const deleteEmployee = async (id: number) => {
+  // Delete an employee
+  const removeEmployee = async (id: number) => {
     try {
       await deleteEmployee(id);
       setEmployees((prev) => prev.filter((employee) => employee.id !== id));
@@ -64,6 +70,14 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
       throw handleApiError(error);
     }
   };
+
+  // Clear error messages
+  const clearError = () => setError(null);
+
+  // Initial data fetch
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <EmployeeContext.Provider
@@ -74,7 +88,8 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
         fetchEmployees,
         addEmployee,
         editEmployee,
-        deleteEmployee,
+        removeEmployee,
+        clearError,
       }}
     >
       {children}

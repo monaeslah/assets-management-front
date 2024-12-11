@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { handleApiError } from '../utilites/index'
 import { Employee } from '../types/employee'
-
+import { Department } from '../types/department'
 interface EmployeeResponse {
   employees: Employee[]
 }
-
+interface DepartmentResponse {
+  departments: Department[]
+}
 const getToken = (): string | null => {
   return localStorage.getItem('authToken')
 }
@@ -27,12 +29,16 @@ apiClient.interceptors.request.use(
   }
 )
 
-// API functions
+export const fetchDepartments = async (): Promise<Department[]> => {
+  const response = await apiClient.get<DepartmentResponse>('/departments')
+  return response.data.departments
+}
+
 export const getAllEmployees = async (): Promise<Employee[]> => {
   try {
     const response = await apiClient.get<EmployeeResponse>('')
 
-    return response.data
+    return response.data.employees
   } catch (error) {
     throw handleApiError(error)
   }
