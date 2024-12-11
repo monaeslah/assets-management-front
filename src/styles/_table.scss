@@ -1,17 +1,17 @@
 .mainTable {
   width: 100%;
-  border: 1px solid #e5e7eb;
+  border: 1px solid $border-color;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: $white;
 }
 
 .rowHeading {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 100px;
-  background-color: #f9fafb;
+  background-color: $background-color;
   font-weight: bold;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid $border-color;
   padding: 8px 12px;
 }
 
@@ -24,12 +24,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 100px;
   padding: 8px 12px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid $border-color;
   transition: background-color 0.2s ease;
 }
 
 .tableRow:hover {
-  background-color: #f3f4f6;
+  background-color: $background-color;
 }
 
 .tableCell {
@@ -47,20 +47,20 @@
   cursor: pointer;
   padding: 4px 8px;
   font-size: 1.2rem;
-  color: #374151;
+  color: $navy-blue;
   transition: color 0.2s ease;
 }
 
 .iconButton:hover {
-  color: #1f2937;
+  color: $blue;
 }
 
 .deleteButton:hover {
-  color: #ef4444;
+  color: $red;
 }
 
 .noDataRow {
   text-align: center;
   font-style: italic;
-  color: #9ca3af;
+  color: $dark-gray;
 }

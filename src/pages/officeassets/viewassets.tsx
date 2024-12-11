@@ -60,9 +60,13 @@ const AssetPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Assets</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button onClick={() => setIsAddModalOpen(true)}>Add Asset</button>
+      <div id="header">
+        {" "}
+        <h1>Assets</h1>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button onClick={() => setIsAddModalOpen(true)}>Add Asset</button>
+      </div>
+
       <Table
         data={assets}
         columns={[

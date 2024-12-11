@@ -4,8 +4,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #2d3748;
-  color: white;
+  background-color: $navy-blue;
+  color: $white;
 }
 
 .navbar-container {
@@ -17,7 +17,7 @@
 
 .navbar-brand h1 {
   font-size: 1.5rem;
-  color: #fff;
+  color: $white;
 }
 
 .navbar-links {
@@ -28,16 +28,16 @@
 
 .navbar-links a {
   text-decoration: none;
-  color: #a0aec0;
+  color: $hover-gray;
   transition: color 0.3s;
 }
 
 .navbar-links a.active {
-  color: #63b3ed;
+  color: $caribbean-blue;
 }
 
 .navbar-links a:hover {
-  color: #fff;
+  color: $white;
 }
 
 .navbar-user {
@@ -47,8 +47,8 @@
 }
 
 .logout-button {
-  background-color: #e53e3e;
-  color: #fff;
+  background-color: $red;
+  color: $white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -57,5 +57,5 @@
 }
 
 .logout-button:hover {
-  background-color: #c53030;
+  background-color: $red;
 }
