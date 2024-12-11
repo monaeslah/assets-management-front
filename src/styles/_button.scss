@@ -54,8 +54,9 @@
     cursor: pointer;
   }
   &.primary-btn {
-    background-color: $blue;
-    color: $white;
+    background-color: $button-primary-bg;
+    color: $button-primary-text;
+    border: 1px solid $border-color;
     font-weight: 600;
     padding: 4px 12px;
     border-radius: 5px;

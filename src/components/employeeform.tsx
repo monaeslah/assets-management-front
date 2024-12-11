@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Employee } from "../../types/employee";
-import { Department } from "../../types/department"; // Assume you have a type for departments
+import { Employee } from "../types/employee";
+import { Department } from "../types/department";
 import { toast } from "react-toastify";
 
 interface EmployeeFormProps {
@@ -8,7 +8,7 @@ interface EmployeeFormProps {
   onClose: () => void;
   onSave: (data: Omit<Employee, "id"> | Partial<Employee>) => Promise<void>;
   initialData?: Employee | null;
-  departments: Department[]; // List of departments to populate the dropdown
+  departments: Department[];
 }
 
 const EmployeeForm: React.FC<EmployeeFormProps> = ({

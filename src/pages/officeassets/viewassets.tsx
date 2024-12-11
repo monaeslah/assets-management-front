@@ -4,9 +4,10 @@ import Table from "../../components/table";
 import AssetForm from "../../components/assetform";
 import ConfirmModal from "../../components/confirmmodal";
 import { Asset } from "../../types/asset";
-import { toast } from "react-toastify";
-import AssetButton from "../../components/button";
 
+import AssetButton from "../../components/button";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AssetPage: React.FC = () => {
   const {
     assets,
@@ -109,6 +110,7 @@ const AssetPage: React.FC = () => {
         onCancel={() => setIsDeleteModalOpen(false)}
         message="Are you sure you want to delete this asset?"
       />
+      <ToastContainer />
     </div>
   );
 };
