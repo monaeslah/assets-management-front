@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./context/authContext.tsx";
 import { AssetProvider } from "./context/assetContext.tsx";
+import { EmployeeProvider } from "./context/employeesContext.tsx";
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
@@ -18,7 +19,9 @@ createRoot(rootElement).render(
     <Router>
       <AuthProvider>
         <AssetProvider>
-          <App />
+          <EmployeeProvider>
+            <App />
+          </EmployeeProvider>
         </AssetProvider>
       </AuthProvider>
     </Router>

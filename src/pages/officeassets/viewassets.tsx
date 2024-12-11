@@ -51,17 +51,10 @@ const AssetPage: React.FC = () => {
     }
   };
   const handleDelete = async () => {
-    console.log("Deleting asset with ID:", assetToDelete);
     if (assetToDelete !== null) {
-      try {
-        await deleteAsset(assetToDelete);
-        toast.success("Asset has been deleted successfully!");
-      } catch (error) {
-        toast.error("Failed to delete the asset. Please try again.");
-      } finally {
-        setAssetToDelete(null);
-        setIsDeleteModalOpen(false);
-      }
+      await deleteAsset(assetToDelete);
+      setIsDeleteModalOpen(false);
+      toast.success("Asset has been deleted successfully!");
     }
   };
 
@@ -86,7 +79,6 @@ const AssetPage: React.FC = () => {
           }
         }}
         onDelete={(id) => {
-          console.log(id);
           setAssetToDelete(id);
           setIsDeleteModalOpen(true);
         }}

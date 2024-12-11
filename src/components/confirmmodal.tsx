@@ -15,13 +15,12 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
 }) => {
   if (!isOpen) return null;
   console.log("Is Delete Modal Open:", isOpen);
-  return ReactDOM.createPortal(
+  return (
     <div style={styles.overlay}>
       <div style={styles.modal}>
         <p>{message}</p>
         <button
           onClick={() => {
-            console.log("Confirm button clicked");
             onConfirm();
           }}
           style={styles.confirmButton}
@@ -32,8 +31,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           Cancel
         </button>
       </div>
-    </div>,
-    document.getElementById("modal-root") as HTMLElement
+    </div>
   );
 };
 

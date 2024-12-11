@@ -6,7 +6,7 @@ import ProtectedRoute from "./protectRoutes";
 import NotFound from "../pages/notfound";
 import Dashboard from "../pages/dashboard";
 import AssetPage from "../pages/officeassets/viewassets";
-
+import EmployeePage from "../pages/employees/employeesgeneral";
 const AppRoutes = () => {
   return (
     <div className="main-area">
@@ -28,6 +28,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <AssetPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employees"
+          element={
+            <ProtectedRoute>
+              <EmployeePage />
             </ProtectedRoute>
           }
         />
