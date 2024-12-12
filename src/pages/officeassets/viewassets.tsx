@@ -43,6 +43,7 @@ const AssetPage: React.FC = () => {
     if (assetToEdit) {
       try {
         await editAsset(assetToEdit.id, updates);
+        fetchAssets();
         toast.success("Asset has been updated successfully!");
       } catch (error) {
         toast.error("Failed to update the asset. Please try again.");
@@ -81,6 +82,11 @@ const AssetPage: React.FC = () => {
           { header: "Name", accessor: "name" },
           { header: "Type", accessor: "type" },
           { header: "Serial Number", accessor: "serialNumber" },
+          {
+            header: "Owner",
+            accessor: "assignedUser",
+            render: (value) => (value === null ? "no body" : value),
+          },
           { header: "Status", accessor: "status" },
         ]}
         onEdit={(id) => {

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import InputWrapper from "./wrappedinput";
+import { useEmployees } from "../context/employeesContext";
+import { AssetFormProps } from "../types/asset";
 const AssetForm: React.FC<AssetFormProps> = ({
   isOpen,
   initialData,
   onSave,
   onClose,
 }) => {
+  const { employees } = useEmployees();
+
   const [formData, setFormData] = useState({
     name: "",
     type: "",
     serialNumber: "",
     status: "AVAILABLE",
+    assignto: "No body yet",
+    // assigntoId: null,
   });
 
   const [errors, setErrors] = useState({
@@ -21,10 +27,12 @@ const AssetForm: React.FC<AssetFormProps> = ({
   useEffect(() => {
     if (initialData) {
       setFormData({
-        name: initialData.name || "",
-        type: initialData.type || "",
-        serialNumber: initialData.serialNumber || "",
-        status: initialData.status || "AVAILABLE",
+        name: initialData.name,
+        type: initialData.type,
+        serialNumber: initialData.serialNumber,
+        status: initialData.status,
+        assignto: initialData.assignedUser || "No body yet",
+        // assigntoId: initialData.assignedUserId,
       });
     }
   }, [initialData]);
@@ -32,7 +40,18 @@ const AssetForm: React.FC<AssetFormProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "assignto") {
+      const selectedEmployee = employees.find((emp) => emp.name === value);
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+        assignto: selectedEmployee ? selectedEmployee.id : null,
+        // assigntoId: selectedEmployee ? selectedEmployee.id : null,
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
 
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
@@ -56,29 +75,25 @@ const AssetForm: React.FC<AssetFormProps> = ({
     e.preventDefault();
 
     if (!validateForm()) return;
-
-    onSave(formData);
+    console.log(employees);
+    onSave({ ...formData, assigntoId: formData.assigntoId });
+    setFormData({
+      name: "",
+      type: "",
+      serialNumber: "",
+      status: "AVAILABLE",
+      assignto: "No body yet",
+      assigntoId: null,
+    });
   };
 
   if (!isOpen) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        backgroundColor: "white",
-        padding: "1rem",
-        boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
-        zIndex: 1000,
-        width: "800px",
-      }}
-    >
+    <div className="modal">
       <h2>{initialData ? "Edit Asset" : "Add New Asset"}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-wrapper">
           <InputWrapper
             label="Name"
             error={formData.name === "" ? "Name is required" : undefined}
@@ -89,18 +104,13 @@ const AssetForm: React.FC<AssetFormProps> = ({
               type="text"
               value={formData.name}
               onChange={handleChange}
-              style={{
-                width: "90%",
-                padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-              }}
+              className="input"
             />
           </InputWrapper>
-
-          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+          {errors.name && <p className="error">{errors.name}</p>}
         </div>
-        <div>
+
+        <div className="input-wrapper">
           <InputWrapper
             label="Type"
             error={formData.type === "" ? "Type is required" : undefined}
@@ -111,18 +121,13 @@ const AssetForm: React.FC<AssetFormProps> = ({
               type="text"
               value={formData.type}
               onChange={handleChange}
-              style={{
-                width: "90%",
-                padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-              }}
+              className="input"
             />
           </InputWrapper>
-
-          {errors.type && <p style={{ color: "red" }}>{errors.type}</p>}
+          {errors.type && <p className="error">{errors.type}</p>}
         </div>
-        <div>
+
+        <div className="input-wrapper">
           <InputWrapper
             label="Serial Number"
             error={
@@ -138,40 +143,51 @@ const AssetForm: React.FC<AssetFormProps> = ({
               value={formData.serialNumber}
               onChange={handleChange}
               disabled={!!initialData}
-              style={{
-                width: "90%",
-                padding: "0.5rem",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                backgroundColor: initialData ? "#f0f0f0" : "white",
-                color: "red",
-              }}
+              className={`input ${initialData ? "input-disabled" : ""}`}
             />
           </InputWrapper>
-
           {errors.serialNumber && (
-            <p style={{ color: "red" }}>{errors.serialNumber}</p>
+            <p className="error">{errors.serialNumber}</p>
           )}
         </div>
-        <div>
+
+        <div className="input-wrapper">
           <label htmlFor="status">Status</label>
           <select
             id="status"
             name="status"
             value={formData.status}
             onChange={handleChange}
+            className="select"
           >
             <option value="AVAILABLE">Available</option>
             <option value="CHECKED_OUT">Checked Out</option>
           </select>
         </div>
-        <div style={{ marginTop: "1rem" }}>
-          <button type="submit">{initialData ? "Update" : "Save"}</button>
-          <button
-            type="button"
-            onClick={onClose}
-            style={{ marginLeft: "1rem" }}
+
+        <div className="input-wrapper">
+          <label htmlFor="status">Owner</label>
+          <select
+            id="owner"
+            name="owner"
+            value={formData.assignto}
+            onChange={handleChange}
+            className="select"
           >
+            <option value="">No body yet</option>
+            {employees.map((employee) => (
+              <option key={employee.id} value={employee.name}>
+                {employee.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="button-group">
+          <button type="submit" className="button primary">
+            {initialData ? "Update" : "Save"}
+          </button>
+          <button type="button" onClick={onClose} className="button secondary">
             Cancel
           </button>
         </div>

@@ -1,5 +1,3 @@
-import React from "react";
-
 interface TableProps<T> {
   data: T[];
   columns: {
@@ -17,7 +15,6 @@ const SectionTable = <T extends { id: number }>({
   onEdit,
   onDelete,
 }: TableProps<T>) => {
-  console.log(data);
   return (
     <section className="mainTable" id="thetender">
       {/* Table Header */}

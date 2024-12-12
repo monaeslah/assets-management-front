@@ -47,7 +47,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1000,
-    width: "800px",
+    // width: "800px",
   },
   modal: {
     background: "white",

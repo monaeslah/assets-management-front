@@ -1,9 +1,14 @@
 export interface Employee {
   id: number
   email: string
-  role: 'EMPLOYEE' | 'HR_MANAGER'
+  password?: string
+  role: string
   createdAt: string
   updatedAt?: string
+  name: string
+  departmentId: number
+  department?: Department
+  //welcome packaging?
 }
 
 export type EmployeeContextType = {

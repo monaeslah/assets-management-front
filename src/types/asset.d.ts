@@ -11,3 +11,22 @@ export interface Asset {
     department: string
   } | null
 }
+export interface AssetFormProps {
+  isOpen: boolean
+  initialData?: {
+    id: number
+    name: string
+    type: string
+    serialNumber: string
+    status: string
+    assignedUser?: string | null
+  }
+  onSave: (formData: {
+    name: string
+    type: string
+    serialNumber: string
+    status: string
+    assignto: string | number | null
+  }) => void
+  onClose: () => void
+}

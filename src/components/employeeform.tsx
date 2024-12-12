@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Employee } from "../types/employee";
 import { Department } from "../types/department";
 import { toast } from "react-toastify";
+import InputField from "./Input";
 
 interface EmployeeFormProps {
   isOpen: boolean;
@@ -18,121 +19,110 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
   initialData,
   departments,
 }) => {
-  const [name, setName] = useState(initialData?.name || "");
-  const [role, setRole] = useState(initialData?.role || "");
-  const [status, setStatus] = useState(initialData?.status || "Active");
-  const [departmentId, setDepartmentId] = useState<number | undefined>(
-    initialData?.department?.id
-  );
+  const [formData, setFormData] = useState({
+    name: "",
+    role: "",
+    department: "",
+  });
+  const [errors, setErrors] = useState({
+    name: "",
+    type: "",
+    serialNumber: "",
+  });
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        name: initialData.name,
+        role: initialData.role,
+        department: initialData.department?.id,
+      });
+    }
+  }, [initialData]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!departmentId) {
+    if (!formData.department) {
       toast.error("Please select a department.");
       return;
     }
 
-    try {
-      await onSave({
-        name,
-        role,
-        status,
-        departmentId,
-      });
-      toast.success(
-        initialData
-          ? "Employee updated successfully!"
-          : "Employee added successfully!"
-      );
-      onClose();
-    } catch (error) {
-      toast.error("An error occurred while saving the employee.");
-    }
+    onSave(formData);
   };
-
-  useEffect(() => {
-    if (initialData) {
-      setName(initialData.name);
-      setRole(initialData.role);
-      setStatus(initialData.status);
-      setDepartmentId(initialData.department?.id);
-    }
-  }, [initialData]);
 
   if (!isOpen) return null;
 
   return (
     <div className="modal">
-      <div className="modal-content">
-        <h2>{initialData ? "Edit Employee" : "Add Employee"}</h2>
-        <form onSubmit={handleSubmit}>
-          {/* Name Input */}
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+      <h2>{initialData ? "Edit Employee" : "Add Employee"}</h2>
+      <form onSubmit={handleSubmit}>
+        {/* Name Input */}
 
-          {/* Role Input */}
-          <div className="form-group">
-            <label htmlFor="role">Role</label>
+        <InputField className="inputField mediumInput" label="Name">
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </InputField>
+
+        {/* Role Input */}
+        <div className="form-group">
+          <InputField className="inputField mediumInput" label="Role">
             <input
               type="text"
               id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
               required
             />
-          </div>
+          </InputField>
+        </div>
 
-          {/* Status Dropdown */}
-          <div className="form-group">
-            <label htmlFor="status">Status</label>
-            <select
-              id="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              required
-            >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </div>
+        {/* Status Dropdown */}
 
-          {/* Department Dropdown */}
-          <div className="form-group">
-            <label htmlFor="department">Department</label>
-            <select
-              id="department"
-              value={departmentId}
-              onChange={(e) => setDepartmentId(Number(e.target.value))}
-              required
-            >
-              <option value="">Select a Department</option>
-              {departments.map((dept) => (
-                <option key={dept.id} value={dept.id}>
-                  {dept.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Department Dropdown */}
+        <div className="form-group">
+          <label htmlFor="department">Department</label>
+          <select
+            id="department"
+            value={formData.department}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a Department</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.id}>
+                {dept.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          {/* Action Buttons */}
-          <div className="form-actions">
-            <button type="submit">
-              {initialData ? "Save Changes" : "Add Employee"}
-            </button>
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+        {/* Action Buttons */}
+        <div className="form-actions">
+          <button type="submit">
+            {initialData ? "Save Changes" : "Add Employee"}
+          </button>
+          <button type="button" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

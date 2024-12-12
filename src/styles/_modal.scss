@@ -1,0 +1,74 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+  z-index: 1000;
+  width: 800px;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  form {
+    .input-wrapper {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      input {
+        width: 90%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+
+        &:disabled {
+          background-color: #f0f0f0;
+          color: red;
+        }
+      }
+
+      p {
+        color: red;
+        margin-top: 0.5rem;
+      }
+    }
+
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .button-group {
+      margin-top: 1rem;
+
+      button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:first-of-type {
+          background-color: #007bff;
+          color: white;
+        }
+
+        &:nth-of-type(2) {
+          margin-left: 1rem;
+          background-color: #6c757d;
+          color: white;
+        }
+      }
+    }
+  }
+}
