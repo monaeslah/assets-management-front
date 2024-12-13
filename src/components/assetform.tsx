@@ -84,7 +84,6 @@ const AssetForm: React.FC<AssetFormProps> = ({
       delete payload.assignedUserId;
     }
 
-    console.log(payload);
     onSave(payload);
 
     setFormData({
@@ -194,7 +193,7 @@ const AssetForm: React.FC<AssetFormProps> = ({
 
         <div className="button-group">
           <button type="submit" className="button primary">
-            {initialData ? "Update" : "Save"}
+            {initialData ? "Save changes " : "Save "}
           </button>
           <button type="button" onClick={onClose} className="button secondary">
             Cancel

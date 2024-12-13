@@ -4,6 +4,7 @@ import { Department } from "../types/department";
 import { toast } from "react-toastify";
 import InputField from "./Input";
 import InputWrapper from "./wrappedinput";
+import AssetButton from "./button";
 
 interface EmployeeFormProps {
   isOpen: boolean;
@@ -65,7 +66,6 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
       departmentId: parseInt(formData.department, 10),
     };
 
-    console.log("Payload to send:", payload);
     await onSave(payload);
   };
 
@@ -127,11 +127,16 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="form-actions">
-          <button type="submit">
-            {initialData ? "Save Changes" : "Add Employee"}
-          </button>
-          <button type="button" onClick={onClose}>
+        <div className="button-group">
+          <AssetButton
+            label={initialData ? "Save Changes" : "Add Employee"}
+            enable={true}
+            size="small"
+            className={"m-auto primary-btn"}
+            onClick={handleSubmit}
+          />
+
+          <button type="button" onClick={onClose} className="button secondary">
             Cancel
           </button>
         </div>

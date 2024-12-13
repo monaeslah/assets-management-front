@@ -10,7 +10,7 @@ import { SignUpForm, SignUpPageProps } from "../../types/pages";
 import { useAuthContext } from "../../context/authContext";
 
 const SignUpPage: React.FC<SignUpPageProps> = () => {
-  const { signUp, feedBackSignUp } = useAuthContext();
+  const { signUp, feedback } = useAuthContext();
   const [form, setForm] = useState<SignUpForm>({
     username: "",
     email: "",
@@ -119,11 +119,7 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                   enable={true}
                   size="medium"
                   className="primary-btn"
-                  onClick={() =>
-                    document
-                      .querySelector("form")
-                      ?.dispatchEvent(new Event("submit"))
-                  }
+                  onClick={handleSubmit}
                 />
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 {success && <p style={{ color: "green" }}>{success}</p>}

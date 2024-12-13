@@ -8,6 +8,7 @@ import Dashboard from "../pages/dashboard";
 import AssetPage from "../pages/officeassets/viewassets";
 import EmployeePage from "../pages/employees/employeesgeneral";
 import Home from "../pages/landingpage";
+import Welcome from "../pages/welcome";
 const AppRoutes = () => {
   return (
     <div className="main-area">
@@ -38,6 +39,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <EmployeePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/welcome"
+          element={
+            <ProtectedRoute>
+              <Welcome />
             </ProtectedRoute>
           }
         />

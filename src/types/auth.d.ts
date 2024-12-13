@@ -1,5 +1,5 @@
 export interface AuthContextType {
-  user: User | null
+  userInfo: User | null
   token: string | null
   login: (form: LoginForm) => Promise<{ success: boolean; message: string }>
   logout: () => void

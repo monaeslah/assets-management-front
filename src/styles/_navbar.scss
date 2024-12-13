@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: $navy-blue;
+  background-color: $pen-blue;
   color: $white;
 }
 
@@ -28,16 +28,16 @@
 
 .navbar-links a {
   text-decoration: none;
-  color: $hover-gray;
+  color: $white;
   transition: color 0.3s;
 }
 
 .navbar-links a.active {
-  color: $caribbean-blue;
+  color: $white;
 }
 
 .navbar-links a:hover {
-  color: $white;
+  color: $color-yellow-comment-dark;
 }
 
 .navbar-user {

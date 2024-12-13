@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [token, setToken] = useState<string | null>(
     () => localStorage.getItem("authToken") || null
   );
-
+  const [welcom, setWelcom] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     const storedUserInfo = localStorage.getItem("userInfo");
@@ -53,9 +53,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const signUp = async (form: SignUpForm): Promise<void> => {
     try {
-      await signUpAPI(form);
-
-      navigate("/login");
+      const { token, user } = await signUpAPI(form);
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      setWelcom(user);
+      setToken(token);
+      console.log("Stored Token: ", token);
+      navigate("/welcome");
     } catch (error) {
       const apiError = error as ApiError;
       setFeedback(apiError.message);

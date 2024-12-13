@@ -9,10 +9,11 @@
 .rowHeading {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 100px;
-  background-color: $background-color;
+  background-color: $button-primary-bg;
   font-weight: bold;
   border-bottom: 1px solid $border-color;
   padding: 8px 12px;
+  color: $background-color;
 }
 
 .tableContainer {
@@ -29,7 +30,7 @@
 }
 
 .tableRow:hover {
-  background-color: $background-color;
+  background-color: $color-blue-comment-dark;
 }
 
 .tableCell {
@@ -52,7 +53,7 @@
 }
 
 .iconButton:hover {
-  color: $blue;
+  color: $teal-bg;
 }
 
 .deleteButton:hover {

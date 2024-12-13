@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useAuthContext } from "../../context/authContext";
-import Over_the_Rhone from "../../assets/images/Over_the_Rhone.jpg";
+import Over_the_Rhone from "../../assets/images/login.webp";
 import SignUpPage from "./signup";
 import InputField from "../../components/Input";
 import AssetButton from "../../components/button";

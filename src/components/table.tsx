@@ -15,13 +15,12 @@ const SectionTable = <T extends { id: number }>({
   onEdit,
   onDelete,
 }: TableProps<T>) => {
-  console.log(columns, data);
   return (
     <section className="mainTable" id="thetender">
       {/* Table Header */}
       <section className="rowHeading">
         {columns.map((col, index) => (
-          <div key={index} className="tableCell tableHeader">
+          <div key={index} className="tableCell tableHeader subtitle1 ">
             <span>{col.header}</span>
           </div>
         ))}
@@ -33,7 +32,7 @@ const SectionTable = <T extends { id: number }>({
       </section>
 
       {/* Table Body */}
-      <section className="tableContainer">
+      <section className="tableContainer caption">
         {data.length > 0 ? (
           data.map((item) => (
             <section key={item.id} className="tableRow">

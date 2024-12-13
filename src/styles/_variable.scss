@@ -4,13 +4,35 @@ $caribbean-blue: #0e6ba8;
 $royal-blue: #0a2472;
 $pen-blue: #001c55;
 $oxford-blue: #00072d;
+$light-teals: #203c5c6e;
+
 $lavander: #a480cf;
 $lavander-dark: #986ccfeb;
 $lavander-light: #b49edac0;
 $color-blue-light: #c5d1fead;
 $color-blue-dark: #c6fef2ce;
 $color-blue-comment-light: #d4ddfead;
-$color-blue-comment-dark: #dffef7ce;
+$color-blue-comment-dark: #dfe4fece;
+$color-yellow-comment-dark: #fafedfce;
+$gray: #555;
+$teal: #007b83;
+$light-blue: #f3faff;
+$light-gray: #ccc;
+$dark-gray: #333;
+$purple: #5e4a6d;
+
+$red: #e74c3c;
+$blue: #7497db;
+$blue-hover: #87a3dae7;
+$white: #ffffff;
+$navy-blue: #2e5277;
+$green-border: #396c35;
+$off-white: #fafaff;
+$light-red: #c90e0e;
+$light-teal: #9dd9d2;
+$teal-bg: #e4f1fe;
+$input-background: rgba(232, 232, 232, 0.5);
+$darkest-background: rgba(0, 0, 0, 0.3);
 @mixin card-gradient($light, $dark) {
   background: linear-gradient(to right, $light, $dark);
 }
@@ -46,16 +68,20 @@ body {
   color: $text-primary-color;
 }
 
-button {
+.button {
   &.primary {
     background-color: $button-primary-bg;
     color: $button-primary-text;
     border: 1px solid $border-color;
   }
   &.secondary {
-    background-color: $button-secondary-bg;
+    background-color: $caribbean-blue;
     color: $button-secondary-text;
     border: 1px solid $border-color;
+    width: 120px;
+    &:hover {
+      background-color: $navy-blue;
+    }
   }
 }
 $font-family: 'Arial', sans-serif;
@@ -66,23 +92,3 @@ $card-box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
   -6px -6px 12px rgba(255, 255, 255, 0.9);
 $card-hover-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
   -10px -10px 20px rgba(255, 255, 255, 0.95);
-
-$gray: #555;
-$teal: #007b83;
-$light-blue: #f3faff;
-$light-gray: #ccc;
-$dark-gray: #333;
-$purple: #5e4a6d;
-
-$red: #e74c3c;
-$blue: #7497db;
-$blue-hover: #87a3dae7;
-$white: #ffffff;
-$navy-blue: #093867;
-$green-border: #396c35;
-$off-white: #fafaff;
-$light-red: #c90e0e;
-$light-teal: #9dd9d2;
-$teal-bg: #e4f1fe;
-$input-background: rgba(232, 232, 232, 0.5);
-$darkest-background: rgba(0, 0, 0, 0.3);

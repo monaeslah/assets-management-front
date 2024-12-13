@@ -15,11 +15,11 @@
   }
 
   &.mediumButton {
-    width: 240px;
+    width: 150px;
   }
 
   &.smallButton {
-    width: 70px;
+    width: 120px;
   }
 }
 
@@ -54,7 +54,7 @@
     cursor: pointer;
   }
   &.primary-btn {
-    background-color: $button-primary-bg;
+    background-color: $oxford-blue;
     color: $button-primary-text;
     border: 1px solid $border-color;
     font-weight: 600;
@@ -62,10 +62,14 @@
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-
+    text-align: center;
     &:hover {
-      background-color: $blue-hover;
+      background-color: $royal-blue;
+      color: $button-primary-text;
     }
+  }
+  .m-auto {
+    text-align: center;
   }
 }
 
@@ -165,7 +169,7 @@ div.options {
       width: 45px;
     }
     &.smallButton {
-      width: 30px;
+      width: 90px;
     }
   }
 
@@ -211,4 +215,10 @@ div.options {
 
 .margin-top {
   margin-top: 30px;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  justify-content: end;
 }
