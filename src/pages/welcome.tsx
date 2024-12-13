@@ -4,7 +4,7 @@ import Confetti from "react-confetti";
 import { useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Button from "../components/button";
-import CelebrationImage from "../assets/images/CelebrationImage.png"; // Add a relevant celebratory image
+import celebrationImage from "../assets/images/celebrationImage.png"; // Add a relevant celebratory image
 
 const SignUpSuccessPage: React.FC = () => {
   const { width, height } = useWindowSize();
@@ -47,7 +47,7 @@ const SignUpSuccessPage: React.FC = () => {
         </div>
       </div>
       <div style={styles.imageContainer}>
-        <img src={CelebrationImage} alt="Celebration" style={styles.image} />
+        <img src={celebrationImage} alt="Celebration" style={styles.image} />
       </div>
     </div>
   );
