@@ -60,12 +60,11 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
       return;
     }
 
-    // Format the payload
     const payload = {
       ...formData,
       departmentId: parseInt(formData.department, 10),
     };
-
+    console.log(payload);
     await onSave(payload);
   };
 

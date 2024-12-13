@@ -49,7 +49,9 @@ const EmployeesPage: React.FC = () => {
 
   const handleDelete = async () => {
     if (employeeToDelete !== null) {
+      toast.info("Deletion is disabled in this demo.");
       await deleteEmployee(employeeToDelete);
+      fetchEmployees();
       setIsDeleteModalOpen(false);
       toast.success("Employee has been deleted successfully!");
     }
@@ -93,6 +95,7 @@ const EmployeesPage: React.FC = () => {
         onDelete={(id) => {
           setEmployeeToDelete(id);
           setIsDeleteModalOpen(true);
+          console.log(id);
         }}
       />
       <EmployeeForm

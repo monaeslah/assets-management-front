@@ -27,7 +27,7 @@ const Dashboard = () => {
     };
 
     fetchStats();
-  }, []);
+  }, [token]);
 
   if (loading) {
     return <div>Loading...</div>;

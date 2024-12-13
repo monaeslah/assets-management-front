@@ -69,6 +69,7 @@ export const updateEmployee = async (
 
 export const deleteEmployee = async (id: number): Promise<void> => {
   try {
+    console.log(id)
     await apiClient.delete(`/${id}`)
   } catch (error) {
     throw handleApiError(error)

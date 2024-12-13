@@ -88,7 +88,7 @@ export const EmployeeProvider: React.FC<{ children: ReactNode }> = ({
         fetchEmployees,
         addEmployee,
         editEmployee,
-        removeEmployee,
+        deleteEmployee,
         clearError,
       }}
     >

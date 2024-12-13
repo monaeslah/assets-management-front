@@ -14,22 +14,24 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   message,
 }) => {
   if (!isOpen) return null;
-  console.log("Is Delete Modal Open:", isOpen);
+  console.log("Is Delete Modal Open:", isOpen, confirm);
   return (
     <div style={styles.overlay}>
       <div style={styles.modal}>
         <p>{message}</p>
-        <button
-          onClick={() => {
-            onConfirm();
-          }}
-          style={styles.confirmButton}
-        >
-          Confirm
-        </button>
-        <button onClick={onCancel} style={styles.cancelButton}>
-          Cancel
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              onConfirm();
+            }}
+            style={styles.confirmButton}
+          >
+            Confirm
+          </button>
+          <button onClick={onCancel} style={styles.cancelButton}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -47,30 +49,38 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1000,
-    // width: "800px",
   },
   modal: {
     background: "white",
     borderRadius: "8px",
     padding: "20px",
     width: "300px",
+    minHeight: "90px",
     textAlign: "center" as const,
     boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    display: "flex",
+
+    flexDirection: "column",
+    gap: "45px",
   },
   confirmButton: {
-    background: "green",
+    background: "#00072d",
     color: "white",
     border: "none",
     padding: "10px 20px",
     marginRight: "10px",
     cursor: "pointer",
+    maxWidth: "90px",
+    textAlight: "center",
   },
   cancelButton: {
-    background: "red",
+    background: "#0e6ba8",
     color: "white",
     border: "none",
     padding: "10px 20px",
     cursor: "pointer",
+    maxWidth: "90px",
+    textAlight: "center",
   },
 };
 

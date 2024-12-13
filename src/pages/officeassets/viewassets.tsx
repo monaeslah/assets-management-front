@@ -56,6 +56,7 @@ const AssetPage: React.FC = () => {
   const handleDelete = async () => {
     if (assetToDelete !== null) {
       await deleteAsset(assetToDelete);
+      fetchAssets();
       setIsDeleteModalOpen(false);
       toast.success("Asset has been deleted successfully!");
     }
