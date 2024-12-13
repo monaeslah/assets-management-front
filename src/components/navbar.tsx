@@ -20,17 +20,17 @@ const Navbar: React.FC = () => {
         </div>
         <ul className="navbar-links">
           <li>
-            <NavLink to="/dashboard" activeClassName="active">
+            <NavLink to="/dashboard" className="active">
               Dashboard
             </NavLink>
           </li>
           <li>
-            <NavLink to="/assets" activeClassName="active">
+            <NavLink to="/assets" className="active">
               Assets
             </NavLink>
           </li>
           <li>
-            <NavLink to="/employees" activeClassName="active">
+            <NavLink to="/employees" className="active">
               Employees
             </NavLink>
           </li>

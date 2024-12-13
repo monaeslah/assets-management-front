@@ -36,6 +36,7 @@ const EmployeesPage: React.FC = () => {
     if (employeeToEdit) {
       try {
         await editEmployee(employeeToEdit.id, updates);
+        fetchEmployees();
         toast.success("Employee has been updated successfully!");
       } catch (error) {
         toast.error("Failed to update the employee. Please try again.");
@@ -78,10 +79,9 @@ const EmployeesPage: React.FC = () => {
           {
             header: "Department",
             accessor: "department",
-            render: (value) => value.name,
+            render: (value) => value?.name || "No Department",
           },
           { header: "Role", accessor: "role" },
-          { header: "Status", accessor: "status" },
         ]}
         onEdit={(id) => {
           const employee = employees.find((e) => e.id === id);

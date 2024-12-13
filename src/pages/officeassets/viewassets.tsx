@@ -27,7 +27,7 @@ const AssetPage: React.FC = () => {
   useEffect(() => {
     fetchAssets();
   }, []);
-
+  console.log(assets);
   const handleAdd = async (asset: Omit<Asset, "id">) => {
     try {
       await addAsset(asset);
@@ -85,7 +85,7 @@ const AssetPage: React.FC = () => {
           {
             header: "Owner",
             accessor: "assignedUser",
-            render: (value) => (value === null ? "no body" : value),
+            render: (value) => (value ? value.name : "Unassigned"),
           },
           { header: "Status", accessor: "status" },
         ]}

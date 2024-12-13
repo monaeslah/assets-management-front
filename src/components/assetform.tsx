@@ -15,8 +15,7 @@ const AssetForm: React.FC<AssetFormProps> = ({
     type: "",
     serialNumber: "",
     status: "AVAILABLE",
-    assignto: "No body yet",
-    // assigntoId: null,
+    assignedUserId: null,
   });
 
   const [errors, setErrors] = useState({
@@ -31,8 +30,7 @@ const AssetForm: React.FC<AssetFormProps> = ({
         type: initialData.type,
         serialNumber: initialData.serialNumber,
         status: initialData.status,
-        assignto: initialData.assignedUser || "No body yet",
-        // assigntoId: initialData.assignedUserId,
+        assignedUserId: initialData.assignedUserId || "No body yet",
       });
     }
   }, [initialData]);
@@ -41,17 +39,15 @@ const AssetForm: React.FC<AssetFormProps> = ({
   ) => {
     const { name, value } = e.target;
 
-    if (name === "assignto") {
-      const selectedEmployee = employees.find((emp) => emp.name === value);
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-        assignto: selectedEmployee ? selectedEmployee.id : null,
-        // assigntoId: selectedEmployee ? selectedEmployee.id : null,
-      }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        name === "assignedUserId"
+          ? value
+            ? parseInt(value, 10)
+            : null
+          : value,
+    }));
 
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
@@ -75,15 +71,28 @@ const AssetForm: React.FC<AssetFormProps> = ({
     e.preventDefault();
 
     if (!validateForm()) return;
-    console.log(employees);
-    onSave({ ...formData, assigntoId: formData.assigntoId });
+
+    // Construct the payload dynamically
+    const payload: Record<string, any> = {
+      ...formData,
+    };
+
+    // Only include `assignedUserId` if it's not null
+    if (formData.assignedUserId != null) {
+      payload.assignedUserId = formData.assignedUserId;
+    } else {
+      delete payload.assignedUserId;
+    }
+
+    console.log(payload);
+    onSave(payload);
+
     setFormData({
       name: "",
       type: "",
       serialNumber: "",
       status: "AVAILABLE",
-      assignto: "No body yet",
-      assigntoId: null,
+      assignedUserId: null,
     });
   };
 
@@ -166,17 +175,17 @@ const AssetForm: React.FC<AssetFormProps> = ({
         </div>
 
         <div className="input-wrapper">
-          <label htmlFor="status">Owner</label>
+          <label htmlFor="assignedUserId">Owner</label>
           <select
-            id="owner"
-            name="owner"
-            value={formData.assignto}
+            id="assignedUserId"
+            name="assignedUserId"
+            value={formData.assignedUserId || ""}
             onChange={handleChange}
             className="select"
           >
             <option value="">No body yet</option>
             {employees.map((employee) => (
-              <option key={employee.id} value={employee.name}>
+              <option key={employee.id} value={employee.id}>
                 {employee.name}
               </option>
             ))}

@@ -13,20 +13,15 @@ export interface Asset {
 }
 export interface AssetFormProps {
   isOpen: boolean
-  initialData?: {
-    id: number
-    name: string
-    type: string
-    serialNumber: string
-    status: string
-    assignedUser?: string | null
+  initialData?: Omit<Asset, 'assignedUser'> & {
+    assignedUser?: Asset['assignedUser']
   }
   onSave: (formData: {
     name: string
     type: string
     serialNumber: string
     status: string
-    assignto: string | number | null
+    assignedUserId: number | null
   }) => void
   onClose: () => void
 }

@@ -3,6 +3,7 @@ import { Employee } from "../types/employee";
 import { Department } from "../types/department";
 import { toast } from "react-toastify";
 import InputField from "./Input";
+import InputWrapper from "./wrappedinput";
 
 interface EmployeeFormProps {
   isOpen: boolean;
@@ -52,12 +53,20 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!formData.department) {
       toast.error("Please select a department.");
       return;
     }
 
-    onSave(formData);
+    // Format the payload
+    const payload = {
+      ...formData,
+      departmentId: parseInt(formData.department, 10),
+    };
+
+    console.log("Payload to send:", payload);
+    await onSave(payload);
   };
 
   if (!isOpen) return null;
@@ -66,41 +75,45 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
     <div className="modal">
       <h2>{initialData ? "Edit Employee" : "Add Employee"}</h2>
       <form onSubmit={handleSubmit}>
-        {/* Name Input */}
-
-        <InputField className="inputField mediumInput" label="Name">
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </InputField>
+        <div className="input-wrapper">
+          <InputWrapper
+            label="Name"
+            error={formData.name === "" ? "Name is required" : undefined}
+          >
+            {" "}
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              disabled={!!initialData}
+              className={`input ${initialData ? "input-disabled" : ""}`}
+            />
+          </InputWrapper>
+        </div>
 
         {/* Role Input */}
         <div className="form-group">
-          <InputField className="inputField mediumInput" label="Role">
-            <input
-              type="text"
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            />
-          </InputField>
+          <label htmlFor="status">Role</label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            className="select"
+          >
+            <option value="EMPLOYEE">Employee</option>
+            <option value="HR_MANAGER">HR</option>
+          </select>
         </div>
 
-        {/* Status Dropdown */}
-
-        {/* Department Dropdown */}
         <div className="form-group">
           <label htmlFor="department">Department</label>
           <select
             id="department"
-            value={formData.department}
+            name="department"
+            value={formData.department || ""}
             onChange={handleChange}
             required
           >
