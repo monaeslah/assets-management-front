@@ -6,6 +6,7 @@
 
 .hero {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -49,4 +50,39 @@
   font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
+}
+.image-slider-section {
+  padding: 2rem;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+.image-slider-section h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+.image-slider {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.image-content {
+  width: 400px;
+  img {
+    width: 100%;
+  }
+}
+.text-content {
+  width: 100%;
+}
+.hero-content-main {
+  display: flex;
 }
